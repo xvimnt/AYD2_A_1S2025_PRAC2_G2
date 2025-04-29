@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_WEATHER_API_URL=http://weather:5000
+      - VITE_TEMPERATURE_API_URL=http://temperature:5001
+      - VITE_AQI_API_URL=http://aqi:5002
+    depends_on:
+      - weather
+      - temperature
+      - aqi
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+
+  weather:
+    build: ./services/weather
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=main.py
+    volumes:
+      - ./services/weather/app:/app
+
+  temperature:
+    build: ./services/temperature
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=main.py
+    volumes:
+      - ./services/temperature/app:/app
+
+  aqi:
+    build: ./services/aqi
+    ports:
+      - "5002:5002"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=main.py
+    volumes:
+      - ./services/aqi/app:/app
+
+volumes:
+  frontend_node_modules:

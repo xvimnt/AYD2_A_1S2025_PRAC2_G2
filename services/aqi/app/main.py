@@ -1,8 +1,12 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import requests
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/api/*": {"origins": ["http://localhost:5173", "http://frontend:5173"]}
+})
 
 # Open-Meteo Air Quality API base URL
 AIR_QUALITY_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"

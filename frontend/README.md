@@ -1,54 +1,83 @@
-# React + TypeScript + Vite
+# Frontend - Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the Weather Dashboard, built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Running with Docker
 
-## Expanding the ESLint configuration
+1. Build and run the container:
+```bash
+# Build the image
+docker build -t weather-dashboard-frontend .
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+# Run the container
+docker run -p 5173:5173 weather-dashboard-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Access the application at [http://localhost:5173](http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Running with Docker Compose
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+The frontend is part of a microservices architecture. To run the complete application:
+
+```bash
+# From the root directory
+docker-compose up --build
+
+# To stop all services
+docker-compose down
 ```
+
+This will start:
+- Frontend at [http://localhost:5173](http://localhost:5173)
+- Weather Service at [http://localhost:5000](http://localhost:5000)
+- Temperature Service at [http://localhost:5001](http://localhost:5001)
+- AQI Service at [http://localhost:5002](http://localhost:5002)
+
+## 🛠️ Development
+
+### Local Development (without Docker)
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start development server:
+```bash
+npm run dev
+```
+
+3. Access the application at [http://localhost:5173](http://localhost:5173)
+
+### Environment Variables
+
+The following environment variables are used:
+- `VITE_WEATHER_API_URL`: Weather service URL (default: http://localhost:5000)
+- `VITE_TEMPERATURE_API_URL`: Temperature service URL (default: http://localhost:5001)
+- `VITE_AQI_API_URL`: AQI service URL (default: http://localhost:5002)
+
+## 📦 Building for Production
+
+```bash
+# Build the application
+npm run build
+
+# Preview the build
+npm run preview
+```
+
+## 🧪 Testing
+
+```bash
+npm run test
+```
+
+## 🔧 Technologies Used
+
+- React
+- TypeScript
+- Vite
+- Docker
+- React Query for API calls

@@ -1,24 +1,71 @@
 import { useQuery } from '@tanstack/react-query'
 
 interface WeatherData {
-  temperature: number
-  conditions: string
+  location: {
+    city: string
+    latitude: number
+    longitude: number
+  }
+  timestamp: string
+  weather: {
+    humidity: {
+      unit: string
+      value: number
+    }
+    precipitation: {
+      unit: string
+      value: number
+    }
+    temperature: {
+      unit: string
+      value: number
+    }
+    weather_code: number
+    wind_speed: {
+      unit: string
+      value: number
+    }
+  }
 }
 
 interface TemperatureData {
-  apparentTemperature: number
+  location: {
+    city: string
+    latitude: number
+    longitude: number
+  }
+  temperature: {
+    actual: {
+      unit: string
+      value: number
+    }
+    apparent: {
+      unit: string
+      value: number
+    }
+  }
+  timestamp: string
 }
 
 interface AQIData {
-  aqi: number
-  quality: string
+  air_quality: {
+    aqi: number
+    categoria: string
+    descripcion: string
+  }
+  location: {
+    city: string
+    latitude: number
+    longitude: number
+  }
+  timestamp: string
 }
 
 function App() {
   const weather = useQuery<WeatherData>({
     queryKey: ['weather'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3001/weather')
+      const response = await fetch('http://localhost:5000/api/weather/current')
       if (!response.ok) {
         throw new Error('Failed to fetch weather data')
       }
@@ -29,7 +76,7 @@ function App() {
   const temperature = useQuery<TemperatureData>({
     queryKey: ['temperature'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3002/temperature')
+      const response = await fetch('http://localhost:5001/api/temperature/current')
       if (!response.ok) {
         throw new Error('Failed to fetch temperature data')
       }
@@ -40,7 +87,7 @@ function App() {
   const aqi = useQuery<AQIData>({
     queryKey: ['aqi'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3003/aqi')
+      const response = await fetch('http://localhost:5002/api/air-quality/current')
       if (!response.ok) {
         throw new Error('Failed to fetch AQI data')
       }
@@ -73,11 +120,42 @@ function App() {
               </div>
             ) : (
               <>
-                <div className="text-4xl font-bold mb-2 text-gray-800">
-                  {weather.data?.temperature}°C
-                </div>
-                <div className="text-gray-600">
-                  Conditions: {weather.data?.conditions}
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-4xl font-bold text-gray-800">
+                      {weather.data?.weather.temperature.value}{weather.data?.weather.temperature.unit}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Temperatura
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <div className="font-semibold text-gray-700">
+                        {weather.data?.weather.humidity.value}{weather.data?.weather.humidity.unit}
+                      </div>
+                      <div className="text-gray-600">Humedad</div>
+                    </div>
+                    
+                    <div>
+                      <div className="font-semibold text-gray-700">
+                        {weather.data?.weather.wind_speed.value} {weather.data?.weather.wind_speed.unit}
+                      </div>
+                      <div className="text-gray-600">Viento</div>
+                    </div>
+                    
+                    <div>
+                      <div className="font-semibold text-gray-700">
+                        {weather.data?.weather.precipitation.value} {weather.data?.weather.precipitation.unit}
+                      </div>
+                      <div className="text-gray-600">Precipitación</div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-xs text-gray-400 pt-2">
+                    {weather.data?.location.city}
+                  </div>
                 </div>
               </>
             )}
@@ -102,11 +180,26 @@ function App() {
               </div>
             ) : (
               <>
-                <div className="text-4xl font-bold mb-2 text-gray-800">
-                  {temperature.data?.apparentTemperature}°C
-                </div>
-                <div className="text-gray-600">
-                  Feels like
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-4xl font-bold text-gray-800">
+                      {temperature.data?.temperature.actual.value}{temperature.data?.temperature.actual.unit}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Temperatura actual
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-semibold text-gray-700">
+                      {temperature.data?.temperature.apparent.value}{temperature.data?.temperature.apparent.unit}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Sensación térmica
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 pt-2">
+                    {temperature.data?.location.city}
+                  </div>
                 </div>
               </>
             )}
@@ -132,10 +225,16 @@ function App() {
             ) : (
               <>
                 <div className="text-4xl font-bold mb-2 text-gray-800">
-                  {aqi.data?.aqi}
+                  {aqi.data?.air_quality.aqi}
                 </div>
-                <div className="text-gray-600">
-                  Quality: {aqi.data?.quality}
+                <div className="text-gray-600 mb-2">
+                  {aqi.data?.air_quality.categoria}
+                </div>
+                <div className="text-sm text-gray-500">
+                  {aqi.data?.air_quality.descripcion}
+                </div>
+                <div className="mt-3 text-xs text-gray-400">
+                  {aqi.data?.location.city}
                 </div>
               </>
             )}
