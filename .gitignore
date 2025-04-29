@@ -1,16 +1,30 @@
-# Node.js
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+# Frontend - Node.js
+frontend/node_modules/
+frontend/npm-debug.log
 
-# Python
-__pycache__/
-*.py[cod]
-*.so
-env/
-venv/
-.env
+# AQI - Python
+services/aqi/__pycache__/
+services/aqi/*.py[cod]
+services/aqi/*.so
+services/aqi/env/
+services/aqi/venv/
+services/aqi/.env
+
+# temperature - Python
+services/temperature/__pycache__/
+services/temperature/*.py[cod]
+services/temperature/*.so
+services/temperature/env/
+services/temperature/venv/
+services/temperature/.env
+
+# weather - Python
+services/weather/__pycache__/
+services/weather/*.py[cod]
+services/weather/*.so
+services/weather/env/
+services/weather/venv/
+services/weather/.env
 
 # IDE
 .idea/
