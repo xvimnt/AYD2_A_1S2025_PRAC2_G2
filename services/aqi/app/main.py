@@ -4,9 +4,7 @@ import requests
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app, resources={
-    r"/api/*": {"origins": ["http://localhost:5173", "http://frontend:5173"]}
-})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Open-Meteo Air Quality API base URL
 AIR_QUALITY_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
