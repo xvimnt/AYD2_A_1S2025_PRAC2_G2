@@ -26,6 +26,6 @@ python app/main.py
 Build and run with Docker:
 
 ```bash
-docker build -t air-quality-service .
-docker run -p 5002:5002 air-quality-service
+docker build -t aqi-service .
+docker run -p 5002:5002 aqi-service
 ```
