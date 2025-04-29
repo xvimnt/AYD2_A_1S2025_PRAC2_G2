@@ -1,0 +1,12 @@
+---
+- name: Deploy Environmental Monitoring Services
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: Install Docker
+      ansible.builtin.package:
+        name: docker
+        state: present
+
+    # Add more tasks as needed
