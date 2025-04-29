@@ -1,7 +1,7 @@
 # Clima y Calidad del Aire - Ciudad de Guatemala 🌤️🌫️
 
 Proyecto para la asignatura AYD2, 1er semestre 2025  
-Grupo <#> | Sección <A o B>  
+Grupo 2 | Sección A
 
 ---
 
@@ -34,19 +34,42 @@ El sistema está basado en **una arquitectura de microservicios**, desplegado en
   - `temperatura/`
   - `calidad_aire/`
 - `infrastructure/`: Scripts de Terraform y Ansible para el despliegue.
-- `postman/`: Colección para probar los endpoints.
 
 ---
 
 ## 🚀 Despliegue
 
 ### Requisitos
-- Docker
-- Terraform CLI
-- Ansible
-- Cuenta de AWS o GCP con credenciales configuradas
+- Docker y Docker Compose
+- Terraform CLI (solo para despliegue en la nube)
+- Ansible (solo para despliegue en la nube)
+- Cuenta de AWS o GCP con credenciales configuradas (solo para despliegue en la nube)
 
-### Instrucciones
+### Desarrollo Local con Docker Compose
+
+Para ejecutar todo el sistema localmente:
+
+```bash
+# Clonar el repositorio
+git clone <url-del-repo>
+cd <nombre-del-repo>
+
+# Construir y ejecutar todos los servicios
+docker-compose up --build
+```
+
+Esto iniciará:
+- Frontend en http://localhost:5173
+- Servicio de Clima en http://localhost:5000
+- Servicio de Temperatura en http://localhost:5001
+- Servicio de Calidad del Aire en http://localhost:5002
+
+Para detener los servicios:
+```bash
+docker-compose down
+```
+
+### Despliegue en la Nube
 
 #### 1. Crear la infraestructura con Terraform
 ```bash
@@ -73,7 +96,7 @@ ansible-playbook -i inventory/hosts playbook.yml
 
 Puedes importar la siguiente colección para probar los endpoints de los microservicios:
 
-📁 [`/postman/microservicios.postman_collection.json`](./postman/microservicios.postman_collection.json)
+📁 [`/postman/microservicios.postman_collection.json`](https://galactic-shuttle-257617.postman.co/workspace/My-Workspace~3f90d44e-1a3b-4d9b-8420-0647233a3137/collection/6645965-aeb43751-6042-4c13-ba96-61778e684bef?action=share&creator=6645965)
 
 ---
 
