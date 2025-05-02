@@ -26,7 +26,7 @@ El sistema está basado en **una arquitectura de microservicios**, desplegado en
 
 ## 🧱 Arquitectura del Proyecto
 
-![Diagrama de arquitectura](./docs/diagrama.png)
+![Image](https://github.com/user-attachments/assets/4829168d-5fb7-4e80-b44b-4f75f1d9d5cd)
 
 - `frontend/`: Aplicación web que consume directamente los microservicios.
 - `services/`: Contiene tres microservicios:
@@ -98,9 +98,6 @@ Puedes importar la siguiente colección para probar los endpoints de los microse
 
 📁 [`/postman/microservicios.postman_collection.json`](https://galactic-shuttle-257617.postman.co/workspace/My-Workspace~3f90d44e-1a3b-4d9b-8420-0647233a3137/collection/6645965-aeb43751-6042-4c13-ba96-61778e684bef?action=share&creator=6645965)
 
----
-## Diagrama de Bloques 
-![Image](https://github.com/user-attachments/assets/4829168d-5fb7-4e80-b44b-4f75f1d9d5cd)
 ---
 
 ## 👥 Integrantes
