@@ -26,7 +26,7 @@ El sistema está basado en **una arquitectura de microservicios**, desplegado en
 
 ## 🧱 Arquitectura del Proyecto
 
-![Diagrama de arquitectura](./docs/diagrama.png)
+![Image](https://github.com/user-attachments/assets/4829168d-5fb7-4e80-b44b-4f75f1d9d5cd)
 
 - `frontend/`: Aplicación web que consume directamente los microservicios.
 - `services/`: Contiene tres microservicios:
@@ -105,17 +105,6 @@ Puedes importar la siguiente colección para probar los endpoints de los microse
 - Javier Monterroso (commits: ✅)
 - Estrella Armas (commits: ✅)
 - Fernando (commits: ✅)
-
-> Todos los integrantes deben tener commits sustanciales durante el desarrollo.
-
----
-
-## ⚠️ Consideraciones
-
-- El proyecto será evaluado con todos los integrantes presentes.
-- El repositorio debe incluir toda la documentación en formato Markdown.
-- Las copias serán penalizadas.
-- La calificación puede cambiar si la ingeniera solicita revisión.
 
 ---
 
