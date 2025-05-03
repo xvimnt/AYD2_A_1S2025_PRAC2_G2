@@ -122,4 +122,4 @@ Puedes importar la siguiente colección para probar los endpoints de los microse
 ## 📎 Enlaces de entrega
 
 - 🔗 Repositorio: [GitHub](https://github.com/xvimnt/AYD2_A_1S2025_PRAC2_G2)
-- 🌍 Frontend desplegado: [IP Pública del frontend](http://<IP_FRONTEND>)
+- 🌍 Frontend desplegado: [IP Pública del frontend](http://3.12.37.235:5173/>)
