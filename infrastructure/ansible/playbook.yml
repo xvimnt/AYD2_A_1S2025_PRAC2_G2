@@ -1,12 +1,104 @@
 ---
-- name: Deploy Environmental Monitoring Services
+- name: Despliegue completo de Frontend y Microservicios
   hosts: all
   become: yes
-  
+  vars:
+    frontend_config:
+      image: "fernandofalla/frontend:1.00"
+      ports: "5173:5173"
+    microservices_config:
+      - name: "clima"
+        image: "fernandofalla/weather:1.0"
+        ports: "5000:5000"
+      - name: "temperatura"
+        image: "fernandofalla/temperature:1.0"
+        ports: "5001:5001"
+      - name: "calidad_aire"
+        image: "fernandofalla/aqi:1.0"
+        ports: "5002:5002"
+
   tasks:
-    - name: Install Docker
-      ansible.builtin.package:
-        name: docker
+    # Instalar Docker y dependencias
+    - name: Instalar dependencias
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: Agregar clave GPG de Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    # Add more tasks as needed
+    - name: Agregar repositorio de Docker
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Instalar Docker Engine
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+
+    - name: Iniciar y habilitar Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Agregar usuario actual al grupo Docker
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    # Desplegar Frontend (solo en nodos 'frontend')
+    - name: Desplegar contenedor Frontend
+      docker_container:
+        name: frontend
+        image: "{{ frontend_config.image }}"
+        ports: "{{ frontend_config.ports }}"
+        state: started
+        restart_policy: unless-stopped
+      when: "'frontend' in group_names"
+
+    # Desplegar Microservicios (solo en nodos 'microservices')
+    - name: Desplegar contenedores de Microservicios
+      docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        ports: "{{ item.ports }}"
+        state: started
+        restart_policy: unless-stopped
+      loop: "{{ microservices_config }}"
+      when: "'microservices' in group_names"
+
+    # Verificar que los servicios estén activos
+    - name: Esperar a que Frontend responda
+      uri:
+        url: "http://localhost:{{ frontend_config.ports.split(':')[0] }}"
+        status_code: 200
+      register: frontend_status
+      until: frontend_status.status == 200
+      retries: 5
+      delay: 10
+      when: "'frontend' in group_names"
+
+    - name: Esperar a que Microservicios respondan
+      uri:
+        url: "http://localhost:{{ item.ports.split(':')[0] }}"
+        status_code: 200
+      register: microservice_status
+      until: microservice_status.status == 200
+      retries: 5
+      delay: 10
+      loop: "{{ microservices_config }}"

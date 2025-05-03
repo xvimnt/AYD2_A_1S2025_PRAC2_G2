@@ -85,10 +85,10 @@ ansible-playbook -i inventory/hosts playbook.yml
 ```
 
 #### 3. Acceder a los servicios
-- Frontend: `http://<IP_FRONTEND>`
-- Clima: `http://<IP_CLIMA>/clima`
-- Temperatura: `http://<IP_TEMPERATURA>/temperatura`
-- Calidad del Aire: `http://<IP_AIRE>/aire`
+- Frontend: `http://3.12.37.235:5173`
+- Clima: `http://3.131.246.128:5000/api/weather`
+- Temperatura: `http://3.141.134.1:5001/api/temperature`
+- Calidad del Aire: `http://3.16.172.93:5002/api/air-quality`
 
 ---
 
@@ -111,4 +111,4 @@ Puedes importar la siguiente colección para probar los endpoints de los microse
 ## 📎 Enlaces de entrega
 
 - 🔗 Repositorio: [GitHub](https://github.com/xvimnt/AYD2_A_1S2025_PRAC2_G2)
-- 🌍 Frontend desplegado: [IP Pública del frontend](http://<IP_FRONTEND>)
+- 🌍 Frontend desplegado: [IP Pública del frontend](http://3.12.37.235:5173)
