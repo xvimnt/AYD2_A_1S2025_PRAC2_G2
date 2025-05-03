@@ -1,12 +1,21 @@
----
-- name: Deploy Environmental Monitoring Services
-  hosts: all
-  become: yes
-  
-  tasks:
-    - name: Install Docker
-      ansible.builtin.package:
-        name: docker
-        state: present
+- hosts: frontend
+  roles:
+    - role: frontend
+      vars:
+        image: "fernandofalla/frontend:1.00"
+        ports: "5173:5173"
 
-    # Add more tasks as needed
+- hosts: microservices
+  roles:
+    - role: microservices
+      vars:
+        services:
+          - name: "clima"
+            image: "fernandofalla/weather:1.0"
+            ports: "5000:5000"
+          - name: "temperatura"
+            image: "fernandofalla/temperature:1.0"
+            ports: "5001:5001"
+          - name: "calidad_aire"
+            image: "fernandofalla/aqi:1.0"
+            ports: "5002:5002"
