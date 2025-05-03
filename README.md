@@ -26,7 +26,7 @@ El sistema está basado en **una arquitectura de microservicios**, desplegado en
 
 ## 🧱 Arquitectura del Proyecto
 
-![Image](https://github.com/user-attachments/assets/4829168d-5fb7-4e80-b44b-4f75f1d9d5cd)
+![Image](https://github.com/user-attachments/assets/83735deb-ce97-465e-ac47-8d1cf67dac64)
 
 - `frontend/`: Aplicación web que consume directamente los microservicios.
 - `services/`: Contiene tres microservicios:
