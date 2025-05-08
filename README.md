@@ -28,6 +28,10 @@ El sistema está basado en **una arquitectura de microservicios**, desplegado en
 
 ![Image](https://github.com/user-attachments/assets/cce9e5e7-4ba1-4623-ac29-594251dc4dac)
 
+![Image](https://github.com/user-attachments/assets/2ace1f29-6160-407e-9b81-b26f81708671)
+
+
+
 - `frontend/`: Aplicación web que consume directamente los microservicios.
 - `services/`: Contiene tres microservicios:
   - `clima/`
